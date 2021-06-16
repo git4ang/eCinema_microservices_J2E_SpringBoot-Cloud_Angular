@@ -25,6 +25,7 @@
 
     <modules>
         <module>M01-config-server</module>
+        <module>M02-eureka-server</module>
     </modules>
 
     <build>
