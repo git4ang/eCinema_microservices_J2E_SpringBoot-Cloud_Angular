@@ -26,6 +26,7 @@
     <modules>
         <module>M01-config-server</module>
         <module>M02-eureka-server</module>
+        <module>M03-gateway-server</module>
     </modules>
 
     <build>

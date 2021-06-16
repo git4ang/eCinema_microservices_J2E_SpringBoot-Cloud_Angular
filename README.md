@@ -30,11 +30,11 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
      - Spring Cloud Config provides server-side and client-side support for externalized configuration in a distributed system.
        With the Config Server, you have a central place to manage external properties for applications across all environments.
    ***
-   - [ ] M02-config-eureka module creation.
+   - [x] M02-config-eureka module creation.
      - Eureka Server is an application that holds the information about all client-service applications.
        Every Micro service will register into the Eureka server and Eureka server knows all the client applications running on each port and IP address.
    ***  
-   - [ ] M03-config-gateway module creation.
+   - [x] M03-config-gateway module creation.
      - An API Gateway is a server that is the single entry point into the system. All requests from clients first go through the API Gateway.
        It then routes requests to the appropriate microservice.
    ***  

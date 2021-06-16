@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: gateway-server
+
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+    gateway:
+      routes:
+      # port 8100
+      - id: city-microservice
+        uri: lb://CITY-MICROSERVICE
+        predicates:
+          - Path= /cities/**
+
+      # port 8200
+      - id: cinema-microservice
+        uri: http://localhost:8200
+        predicates:
+          - Path= /cinemas/**
+
+      - id: cinema-microservice
+        uri: http://localhost:8200
+        predicates:
+          - Path= /movieRooms/**
+
+      - id: cinema-microservice
+        uri: http://localhost:8200
+        predicates:
+          - Path= /cinemaTickets/**
+
+      # port 8300
+      - id: movie-microservice
+        uri: http://localhost:8300
+        predicates:
+          - Path= /categories/**
+
+      - id: movie-microservice
+        uri: http://localhost:8300
+        predicates:
+          - Path= /movies/**
+
+      - id: movie-microservice
+        uri: http://localhost:8300
+        predicates:
+          - Path= /movieProjections/**
+
+      - id: movie-microservice
+        uri: http://localhost:8300
+        predicates:
+          - Path= /movieSessions/**
+
+      # port 8400
+      - id: ticket-microservice
+        uri: http://localhost:8400
+        predicates:
+          - Path= /movieTickets/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
+    reactor.netty.http.client: DEBUG
