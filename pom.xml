@@ -24,7 +24,7 @@
     </properties>
 
     <modules>
-
+        <module>M01-config-server</module>
     </modules>
 
     <build>

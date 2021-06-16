@@ -26,7 +26,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 ### The creation of the project is based on the following points that will be detailed below:
    - [x] Project initial (multiProject)
    ***
-   - [ ] M01-config-server module creation.
+   - [x] M01-config-server module creation.
      - Spring Cloud Config provides server-side and client-side support for externalized configuration in a distributed system.
        With the Config Server, you have a central place to manage external properties for applications across all environments.
    ***
@@ -63,7 +63,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
     - [ ] **M11-cinema-microservice**
     - [ ] **M12-movie-microservice**
     - [ ] **M13-ticket-microservice**
-      - [**Swagger-url employee**] (http://localhost:8080/employee-microservice/swagger-ui/)
+      - [**Swagger-url employee**] (http://localhost:8080/city-microservice/swagger-ui/)
   ***    
    - [ ] Unit Tests for the module **M10-city-microservice**.
    - [ ] Unit Tests for the module **M11-cinema-microservice**.
