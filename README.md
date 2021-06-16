@@ -14,16 +14,17 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 ### Objective and detail of the project
 
    - Each **City entity** is defined by his id, a name and his coordinate position.
-   - Each **Cinema entity** is defined by his id, name, room entity, City entity
-   - Each **movieRoomm entity** is defined by his id, name, number of cinemaTicket, Cinema entity, cinemaTicket entity
-   - Each **cinemaTicket entity** is defined by his id, seatNumber, movieRoom
+   - Each **Cinema entity** is defined by his id, name, Room entity, City entity
+   - Each **Room entity** is defined by his id, name, number of cinemaTicket, Cinema entity, Seat entity
+   - Each **Seat entity** is defined by his id, seatNumber, movieRoom
    - Each **Category entity** is defined by his id, name, movies collection
    - Each **Movie entity** is defined by his id, title, releaseDate, runningTime, director, starring, country, language, photo, description.
-   - Each **movieProjection entity** is defined by his id, dateProjection, price, Movie entity, movieSession, roomCinema entity, movieTicket entity.
+   - Each **movieProjection entity** is defined by his id, dateProjection, price, Movie entity, movieSession, Room entity, movieTicket entity.
    - Each **movieSession entity** id defined by his id, movieProjection entity.
-   - Each **movieTicket entity** is dined by his id, price, codePayment, reserved, cinemaTicket entity, movieProjection entity.
+   - Each **movieTicket entity** is dined by his id, price, codePayment, reserved, Seat entity, movieProjection entity.
 ***
 ### The creation of the project is based on the following points that will be detailed below:
+   
    - [x] Project initial (multiProject)
    ***
    - [x] M01-config-server module creation.
@@ -38,10 +39,10 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
      - An API Gateway is a server that is the single entry point into the system. All requests from clients first go through the API Gateway.
        It then routes requests to the appropriate microservice.
    ***  
-   - [ ] M10-microservice-city module creation.
+   - [x] M10-microservice-city module creation.
      - Set up the M10-city-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
    ***
-   - [ ] M11-microservice-cinema module creation.
+   - [x] M11-microservice-cinema module creation.
      - Set up the M11-cinema-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
    ***
    - [ ] M12-microservice-movie module creation.
