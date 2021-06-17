@@ -9,5 +9,7 @@ public interface RoomService {
     Room getRoom(long idRoom);
     Collection<Room> allRooms();
     Object updateRoom(Room r);
+    Object addRoomToCinema(long idRoom, long idCinema);
+    Object removeSeatFromRoom(long idSeat, long idRoom);
     Object deleteRoom(long idRoom);
 }

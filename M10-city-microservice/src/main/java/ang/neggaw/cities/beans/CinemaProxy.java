@@ -1,6 +1,7 @@
 package ang.neggaw.cities.beans;
 
 import ang.neggaw.cities.entities.City;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -22,9 +23,11 @@ public class CinemaProxy {
     @Enumerated(EnumType.STRING)
     private City.EntityState entityState;
 
+    @JsonIgnoreProperties(value = {"cinema"})
     private Collection<RoomProxy> rooms;
 
     private List<Long> idsCitiesCinema;
 
+    @JsonIgnoreProperties(value = { "cinema" })
     private Collection<City> cities;
 }

@@ -9,5 +9,5 @@ public interface SeatService {
     Seat getSeat(long idSeat);
     Collection<Seat> allSeats();
     Object updateSeat(Seat s);
-    Seat deleteSeat(long idSeat);
+    Object deleteSeat(long idSeat);
 }

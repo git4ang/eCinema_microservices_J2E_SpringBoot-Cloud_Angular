@@ -1,5 +1,6 @@
 package ang.neggaw.cinemas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class Room implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cinema", referencedColumnName = "idCinema")
+    @JsonIgnoreProperties(value = { "rooms" })
     private Cinema cinema;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)

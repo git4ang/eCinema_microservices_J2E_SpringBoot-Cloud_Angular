@@ -1,5 +1,6 @@
 package ang.neggaw.cinemas.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class Seat implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "room", referencedColumnName = "idRoom")
+    @JsonIgnoreProperties(value = { "seats" })
     private Room room;
 
     ///// info complementaires /////
