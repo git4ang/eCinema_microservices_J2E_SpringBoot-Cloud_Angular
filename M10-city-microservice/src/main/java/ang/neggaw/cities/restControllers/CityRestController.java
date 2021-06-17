@@ -37,12 +37,27 @@ public class CityRestController {
     }
 
     // **************************** Retrieve a single city ***************************** //
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getCity(@PathVariable(value = "id") long idCity) {
+    @GetMapping("/{idCity}")
+    public ResponseEntity<Object> getCity(@PathVariable(value = "idCity") long idCity) {
 
         log.info("Fetching City with id: {}", idCity);
 
-        City city = cityService.getCity(idCity);
+        City city = cityService.getCity(idCity, false);
+        if(city == null) {
+            String error = String.format("Unable to find City with id: '%s'", idCity);
+            log.error(error);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+        return ResponseEntity.ok(city);
+    }
+
+    @GetMapping("/{idCity}/{isFullCity}")
+    public ResponseEntity<?> getCity(@PathVariable(value = "idCity") long idCity,
+                                     @PathVariable(value = "isFullCity") boolean isFullCity) {
+
+        log.info("Fetching full City with id: {}", idCity);
+
+        City city = cityService.getCity(idCity, isFullCity);
         if(city == null) {
             String error = String.format("Unable to find City with id: '%s'", idCity);
             log.error(error);
@@ -66,8 +81,8 @@ public class CityRestController {
     }
 
     // **************************** Update a City ************************************** //
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateCity(@PathVariable(value = "id") long idCity,
+    @PutMapping("/{idCity}")
+    public ResponseEntity<?> updateCity(@PathVariable(value = "idCity") long idCity,
                                              @Valid @RequestBody City v) {
 
         log.info("Updating City with id: {}", idCity);
@@ -84,8 +99,8 @@ public class CityRestController {
     }
 
     // **************************** Delete a City ************************************** //
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCity(@PathVariable(value = "id") long idCity) {
+    @DeleteMapping(value = "/{idCity}")
+    public ResponseEntity<?> deleteCity(@PathVariable(value = "idCity") long idCity) {
 
         log.info("Deleting City with id: {}", idCity);
 
@@ -95,6 +110,8 @@ public class CityRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cityDB);
         }
 
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(String.format("City with id: '%s' DELETED successfully.", idCity));
+        String cityDeleted = String.format("City with id: '%s' DELETED successfully.", idCity);
+        log.info(cityDeleted);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(cityDeleted);
     }
 }

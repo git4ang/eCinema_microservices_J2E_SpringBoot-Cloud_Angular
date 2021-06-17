@@ -1,11 +1,13 @@
 package ang.neggaw.cities.services.implementations;
 
 import ang.neggaw.cities.entities.City;
+import ang.neggaw.cities.proxies.CinemaRestProxy;
 import ang.neggaw.cities.repositories.CityRepository;
 import ang.neggaw.cities.services.CityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 
@@ -15,6 +17,7 @@ import java.util.Collection;
 public class CityServiceImpl implements CityService {
 
     private final CityRepository cityRepository;
+    private final CinemaRestProxy cinemaRestProxy;
 
 
     @Override
@@ -28,7 +31,14 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public City getCity(long idCity) { return cityRepository.findByIdCity(idCity); }
+    public City getCity(long idCity, boolean isFullCity) {
+        City cityDB = cityRepository.findByIdCity(idCity);
+        if( isFullCity && cityDB != null && ! cityDB.getIdsCinemasCity().isEmpty()) {
+            cityDB.getIdsCinemasCity().forEach(id -> cityDB.getCinemas().add(cinemaRestProxy.getCinema(id).getBody()));
+        }
+
+        return cityDB;
+    }
 
     @Override
     public Collection<City> allCities() { return cityRepository.findAll(); }
@@ -39,19 +49,34 @@ public class CityServiceImpl implements CityService {
         City cityDB = cityRepository.findByIdCity(c.getIdCity());
         if (cityDB == null) return String.format("City with id: '%s' Not Found.", c.getIdCity());
 
+        if(c.getEntityState() != null && c.getEntityState().equals(City.EntityState.PROCESSING)){
+            c.setEntityState(City.EntityState.UPDATED);
+            return cityRepository.saveAndFlush(c);
+        }
+
         c.setEntityState(City.EntityState.UPDATED);
+        c.setIdsCinemasCity(cityDB.getIdsCinemasCity());
         return cityRepository.saveAndFlush(c);
     }
 
     @Override
     public Object deleteCity(long idCity) {
 
-        City city = getCity(idCity);
-        if (city == null) return String.format("City with id: '%s' Not Found.", idCity);
+        City cityDB = getCity(idCity, true);
+        if (cityDB == null) return String.format("City with id: '%s' Not Found.", idCity);
 
-        cityRepository.delete(city);
-        city.setEntityState(City.EntityState.DELETED);
+        if( ! cityDB.getCinemas().isEmpty()) {
+            cityDB.getCinemas().forEach(cinema -> {
+                cinema.getIdsCitiesCinema().removeIf(id -> id == idCity);
+                cinema.setEntityState(City.EntityState.PROCESSING);
+                cinemaRestProxy.updateCinema(cinema.getIdCinema(), cinema);
+                cinemaRestProxy.deleteCinema(cinema.getIdCinema());
+            });
+        }
 
-        return city;
+        cityRepository.delete(cityDB);
+        cityDB.setEntityState(City.EntityState.DELETED);
+
+        return cityDB;
     }
 }
