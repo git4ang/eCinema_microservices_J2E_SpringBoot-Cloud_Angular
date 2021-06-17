@@ -1,6 +1,7 @@
 package ang.neggaw.cinemas.entities;
 
 import ang.neggaw.cinemas.beans.CityProxy;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,6 +41,8 @@ public class Cinema implements Serializable {
     private long idCity;
 
     @Transient
+    @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private CityProxy city;
 
     @ElementCollection
