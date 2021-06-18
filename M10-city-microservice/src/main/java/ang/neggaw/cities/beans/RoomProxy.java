@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Data
@@ -25,5 +26,5 @@ public class RoomProxy {
     private CinemaProxy cinema;
 
     @JsonIgnoreProperties(value = { "room" })
-    private Collection<SeatProxy> seats;
+    private Collection<SeatProxy> seats = new ArrayList<>();
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,10 +25,10 @@ public class CinemaProxy {
     private City.EntityState entityState;
 
     @JsonIgnoreProperties(value = {"cinema"})
-    private Collection<RoomProxy> rooms;
+    private Collection<RoomProxy> rooms = new ArrayList<>();
 
-    private List<Long> idsCitiesCinema;
+    private List<Long> idsCitiesCinema = new ArrayList<>();
 
     @JsonIgnoreProperties(value = { "cinema" })
-    private Collection<City> cities;
+    private Collection<City> cities = new ArrayList<>();
 }

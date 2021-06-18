@@ -14,14 +14,14 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 ### Objective and detail of the project
 
    - Each **City entity** is defined by his id, a name and his coordinate position.
-   - Each **Cinema entity** is defined by his id, name, Room entity, City entity
-   - Each **Room entity** is defined by his id, name, number of cinemaTicket, Cinema entity, Seat entity
-   - Each **Seat entity** is defined by his id, seatNumber, movieRoom
-   - Each **Category entity** is defined by his id, name, movies collection
-   - Each **Movie entity** is defined by his id, title, releaseDate, runningTime, director, starring, country, language, photo, description.
-   - Each **movieProjection entity** is defined by his id, dateProjection, price, Movie entity, movieSession, Room entity, movieTicket entity.
+   - Each **Cinema entity** is defined by his id, name, address, rooms collection & City entity.
+   - Each **Room entity** is defined by his id, name, number of seats, Cinema entity & seats collection.
+   - Each **Seat entity** is defined by his id, rowSeat, columnSeat, seatNumber & Room entity.
+   - Each **Category entity** is defined by his id, name, movies collection.
+   - Each **Movie entity** is defined by his id, title, releaseDate, runningTime, director, actors, country, languages, photo, description.
+   - Each **movieProjection entity** is defined by his id, dateProjection, price, Movie entity & Room entity.
    - Each **movieSession entity** id defined by his id, movieProjection entity.
-   - Each **movieTicket entity** is dined by his id, price, codePayment, reserved, Seat entity, movieProjection entity.
+   - Each **movieTicket entity** is defined by his id, price, codePayment, isReserved, Seat entity & movieProjection entity.
 ***
 ### The creation of the project is based on the following points that will be detailed below:
    
@@ -39,16 +39,16 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
      - An API Gateway is a server that is the single entry point into the system. All requests from clients first go through the API Gateway.
        It then routes requests to the appropriate microservice.
    ***  
-   - [x] M10-microservice-city module creation.
+   - [x] M10-city-microservice module creation.
      - Set up the M10-city-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
    ***
-   - [x] M11-microservice-cinema module creation.
+   - [x] M11-cinema-microservice module creation.
      - Set up the M11-cinema-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
    ***
-   - [ ] M12-microservice-movie module creation.
+   - [x] M12-movie-microservice module creation.
      - Set up the M12-movie-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
    ***
-  - [ ] M13-microservice-ticket module creation.
+  - [x] M13-ticket-microservice module creation.
     - Set up the M13-ticket-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
   ***
   - [ ] **Zipkin server** and **Sleuth** for all microservices modules.
@@ -90,7 +90,5 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 ***
 ## Frontend side: Angular 11 & Boostrap 4
 ***
-***
-
-    
+***  
     

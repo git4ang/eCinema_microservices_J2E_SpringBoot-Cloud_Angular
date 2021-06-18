@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -23,9 +24,11 @@ public class RoomProxy {
 
     private long idCinema;
 
+    Collection<SeatProxy> seats = new ArrayList<>();
+
     @ElementCollection
-    private List<Long> idsProjectionsRoom;
+    private List<Long> idsProjectionsRoom = new ArrayList<>();
 
     @ToString.Exclude
-    private Collection<MovieProjection> projections;
+    private Collection<MovieProjection> projections = new ArrayList<>();
 }

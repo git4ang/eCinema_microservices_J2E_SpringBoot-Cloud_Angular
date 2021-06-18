@@ -117,7 +117,7 @@ public class RoomServiceImpl implements RoomService {
             roomDB.getProjections().forEach(proj -> {
                 proj.setRoom(null);
                 proj.setEntityState(Room.EntityState.PROCESSING);
-                projectionRestProxy.updateCategory(proj.getIdProjection(), proj);
+                projectionRestProxy.updateProjection(proj.getIdProjection(), proj);
                 projectionRestProxy.deleteProjection(proj.getIdProjection());
             });
         }

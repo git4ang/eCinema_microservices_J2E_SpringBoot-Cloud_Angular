@@ -1,6 +1,6 @@
-package ang.neggaw.cinemas.proxies;
+package ang.neggaw.tickets.proxies;
 
-import ang.neggaw.cinemas.beans.ProjectionProxy;
+import ang.neggaw.tickets.beans.ProjectionProxy;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

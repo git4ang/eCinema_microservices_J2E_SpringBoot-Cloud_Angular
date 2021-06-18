@@ -1,5 +1,6 @@
 package ang.neggaw.cinemas.entities;
 
+import ang.neggaw.cinemas.beans.TicketProxy;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -38,6 +39,11 @@ public class Seat implements Serializable {
     @JoinColumn(name = "room", referencedColumnName = "idRoom")
     @JsonIgnoreProperties(value = { "seats" })
     private Room room;
+
+    private long idTicket;
+
+    @Transient
+    private TicketProxy ticket;
 
     // Additional information
     public enum EntityState { CREATED, UPDATED, DELETED, PROCESSING }

@@ -29,6 +29,8 @@
         <module>M03-gateway-server</module>
         <module>M10-city-microservice</module>
         <module>M11-cinema-microservice</module>
+        <module>M12-movie-microservice</module>
+        <module>M13-ticket-microservice</module>
     </modules>
 
     <build>

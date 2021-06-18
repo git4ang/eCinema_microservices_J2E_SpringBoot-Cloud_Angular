@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,5 +27,5 @@ public class CityProxy {
 
     private long idCinema;
     private List<Long> idsCinemasCity;
-    private Collection<Cinema> cinemas;
+    private Collection<Cinema> cinemas = new ArrayList<>();
 }

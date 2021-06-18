@@ -1,9 +1,10 @@
-package ang.neggaw.cinemas.beans;
+package ang.neggaw.tickets.beans;
 
-import ang.neggaw.cinemas.entities.Room;
+import ang.neggaw.tickets.entities.MovieTicket;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -19,16 +20,14 @@ public class ProjectionProxy {
     private double price;
 
     @Enumerated(EnumType.STRING)
-    private Room.EntityState entityState;
+    private MovieTicket.EntityState entityState;
 
     private long idMovie;
 
     private long idRoom;
 
-    private Room room;
-
     private long idTicket;
-    private TicketProxy ticket;
+    private MovieTicket ticket;
     private List<Long> idsTicketsProjection = new ArrayList<>();
-    private Collection<TicketProxy> tickets = new ArrayList<>();
+    private Collection<MovieTicket> tickets = new ArrayList<>();
 }

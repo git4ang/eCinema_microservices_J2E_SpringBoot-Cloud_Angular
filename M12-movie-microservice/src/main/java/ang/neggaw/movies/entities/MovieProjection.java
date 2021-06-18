@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MovieProjection {
+public class MovieProjection implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,7 @@ public class MovieProjection {
 
     @JsonIgnoreProperties(value = {"projection"})
     @OneToMany(mappedBy = "projection", cascade = {CascadeType.ALL})
-    private Collection<MovieSession> sessions;
+    private Collection<MovieSession> sessions = new ArrayList<>();
 
     @NonNull
     private long idRoom;

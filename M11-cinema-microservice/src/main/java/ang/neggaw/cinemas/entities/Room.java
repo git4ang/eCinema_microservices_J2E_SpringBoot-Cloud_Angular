@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,11 +51,11 @@ public class Room implements Serializable {
 
     @ElementCollection
     @JoinTable(name = "rooms_projections", joinColumns = @JoinColumn(name = "idRoom"))
-    private List<Long> idsProjectionsRoom;
+    private List<Long> idsProjectionsRoom = new ArrayList<>();
 
     @Transient
     @ToString.Exclude
-    private Collection<ProjectionProxy> projections;
+    private Collection<ProjectionProxy> projections = new ArrayList<>();
 
 
     // Additional information

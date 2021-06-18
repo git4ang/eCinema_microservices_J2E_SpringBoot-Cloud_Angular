@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MovieSession {
+public class MovieSession implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

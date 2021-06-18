@@ -3,6 +3,8 @@ package ang.neggaw.movies.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Movie {
+public class Movie implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +57,7 @@ public class Movie {
     private Category category;
 
     @OneToMany(mappedBy = "movie")
-    Collection<MovieProjection> projections;
+    Collection<MovieProjection> projections = new ArrayList<>();
 
     // Additional information
     public enum EntityState { CREATED, UPDATED, DELETED, PROCESSING }

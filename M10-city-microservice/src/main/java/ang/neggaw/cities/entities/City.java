@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "cities")
+@Table(name = "tb_cities")
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -51,7 +51,7 @@ public class City implements Serializable {
     @Transient
     private Collection<CinemaProxy> cinemas;
 
-    //
+    // Additional information
     public City() {
         this.cinemas = new ArrayList<>();
         this.idsCinemasCity = new ArrayList<>();

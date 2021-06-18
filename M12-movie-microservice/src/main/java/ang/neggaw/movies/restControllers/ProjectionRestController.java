@@ -21,7 +21,7 @@ public class ProjectionRestController {
 
     // *********************************** Create a Projection ************************************** //
     @PostMapping
-    public ResponseEntity<?> createProjectionFilm(@Valid @RequestBody MovieProjection projection) {
+    public ResponseEntity<?> createProjection(@Valid @RequestBody MovieProjection projection) {
 
         log.info("Creating Projection for the Movie with id: '{}'", projection.getIdMovie());
 
@@ -38,7 +38,7 @@ public class ProjectionRestController {
 
     // *********************************** Retrieve a Projection ************************************ //
     @GetMapping("/{idProj}")
-    public ResponseEntity<Object> getProjectionFilm(@PathVariable(value = "idProj") long idProj) {
+    public ResponseEntity<Object> getProjection(@PathVariable(value = "idProj") long idProj) {
 
         log.info("Fetching Projection with id: '{}'", idProj);
 
@@ -51,7 +51,7 @@ public class ProjectionRestController {
     }
 
     @GetMapping("/{idProj}/{isFullProjection}")
-    public ResponseEntity<Object> getProjectionFilm(@PathVariable(value = "idProj") long idProj,
+    public ResponseEntity<Object> getProjection(@PathVariable(value = "idProj") long idProj,
                                                     @PathVariable(value = "isFullProjection") boolean isFullProjection) {
 
         log.info("Fetching full Projection with id: '{}'", idProj);
@@ -66,7 +66,7 @@ public class ProjectionRestController {
 
     // *********************************** Retrieve all Projections ********************************* //
     @GetMapping
-    public ResponseEntity<Collection<MovieProjection>> allProjectionsFilm() {
+    public ResponseEntity<Collection<MovieProjection>> allProjections() {
 
         log.info("Fetching all Projection cinema...");
 
@@ -77,8 +77,8 @@ public class ProjectionRestController {
 
     // *********************************** Update a Projection ************************************** //
     @PutMapping("/{idProj}")
-    public ResponseEntity<?> updateProjectionFilm(@PathVariable(value = "idProj") long idProj,
-                                                  @Valid @RequestBody MovieProjection projection) {
+    public ResponseEntity<?> updateProjection(@PathVariable(value = "idProj") long idProj,
+                                              @Valid @RequestBody MovieProjection projection) {
 
         log.info("Updating Projection with Film with id: '{}'.", projection.getIdMovie());
 
@@ -115,7 +115,7 @@ public class ProjectionRestController {
 
     // *********************************** Delete a Projection ************************************** //
     @DeleteMapping("/{idProj}")
-    public ResponseEntity<?> deleteProjectionFilm(@PathVariable(value = "idProj") long idProj) {
+    public ResponseEntity<?> deleteProjection(@PathVariable(value = "idProj") long idProj) {
 
         log.info("Deleting Projection with id: '{}'.", idProj);
 

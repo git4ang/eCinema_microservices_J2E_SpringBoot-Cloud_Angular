@@ -1,7 +1,6 @@
-package ang.neggaw.cities.beans;
+package ang.neggaw.movies.beans;
 
-import ang.neggaw.cities.entities.City;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ang.neggaw.movies.entities.MovieProjection;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -19,7 +18,7 @@ public class SeatProxy {
     private int columnSeat;
 
     @Enumerated(EnumType.STRING)
-    private City.EntityState entityState;
+    private MovieProjection.EntityState entityState;
 
     private long idRoom;
 

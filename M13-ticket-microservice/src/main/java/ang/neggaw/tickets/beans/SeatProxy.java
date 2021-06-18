@@ -1,11 +1,11 @@
-package ang.neggaw.cities.beans;
+package ang.neggaw.tickets.beans;
 
-import ang.neggaw.cities.entities.City;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import ang.neggaw.tickets.entities.MovieTicket;
 import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Transient;
 
 @Data
 public class SeatProxy {
@@ -19,9 +19,12 @@ public class SeatProxy {
     private int columnSeat;
 
     @Enumerated(EnumType.STRING)
-    private City.EntityState entityState;
+    private MovieTicket.EntityState entityState;
 
     private long idRoom;
 
     private long idTicket;
+
+    @Transient
+    private MovieTicket ticket;
 }

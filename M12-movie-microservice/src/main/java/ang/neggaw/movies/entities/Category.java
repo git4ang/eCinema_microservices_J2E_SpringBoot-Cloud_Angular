@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -13,7 +15,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Category {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class Category {
 
     @JsonIgnoreProperties(value = {"category"})
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Collection<Movie> movies;
+    private Collection<Movie> movies = new ArrayList<>();
 
     // Additional information
     public enum EntityState { CREATED, UPDATED, DELETED, PROCESSING }
