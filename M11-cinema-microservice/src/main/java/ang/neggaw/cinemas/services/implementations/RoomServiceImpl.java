@@ -3,6 +3,7 @@ package ang.neggaw.cinemas.services.implementations;
 import ang.neggaw.cinemas.entities.Cinema;
 import ang.neggaw.cinemas.entities.Room;
 import ang.neggaw.cinemas.entities.Seat;
+import ang.neggaw.cinemas.proxies.ProjectionRestProxy;
 import ang.neggaw.cinemas.repositories.CinemaRepository;
 import ang.neggaw.cinemas.repositories.RoomRepository;
 import ang.neggaw.cinemas.repositories.SeatRepository;
@@ -21,6 +22,7 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
     private final CinemaRepository cinemaRepository;
     private final SeatRepository seatRepository;
+    private final ProjectionRestProxy projectionRestProxy;
 
 
     @Override
@@ -38,8 +40,12 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room getRoom(long idRoom) {
-        return roomRepository.findByIdRoom(idRoom);
+    public Room getRoom(long idRoom, boolean isFullRoom) {
+
+        Room room = roomRepository.findByIdRoom(idRoom);
+        if(isFullRoom && room != null && ! room.getIdsProjectionsRoom().isEmpty())
+            room.getIdsProjectionsRoom().forEach(id -> room.getProjections().add(projectionRestProxy.getProjection(id).getBody()));
+        return room;
     }
 
     @Override
@@ -104,8 +110,17 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Object deleteRoom(long idRoom) {
         
-        Room roomDB = getRoom(idRoom);
+        Room roomDB = getRoom(idRoom, true);
         if(roomDB == null) return String.format("Room with id: '%s' Not Found.", idRoom);
+
+        if( ! roomDB.getProjections().isEmpty()) {
+            roomDB.getProjections().forEach(proj -> {
+                proj.setRoom(null);
+                proj.setEntityState(Room.EntityState.PROCESSING);
+                projectionRestProxy.updateCategory(proj.getIdProjection(), proj);
+                projectionRestProxy.deleteProjection(proj.getIdProjection());
+            });
+        }
 
         roomRepository.delete(roomDB);
         roomDB.setEntityState(Room.EntityState.DELETED);

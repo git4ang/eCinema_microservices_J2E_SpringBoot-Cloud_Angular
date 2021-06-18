@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface RoomService {
     Object createRoom(Room r);
-    Room getRoom(long idRoom);
+    Room getRoom(long idRoom, boolean isFullRoom);
     Collection<Room> allRooms();
     Object updateRoom(Room r);
     Object addRoomToCinema(long idRoom, long idCinema);

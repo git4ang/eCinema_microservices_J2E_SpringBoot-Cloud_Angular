@@ -39,6 +39,6 @@ public class Seat implements Serializable {
     @JsonIgnoreProperties(value = { "seats" })
     private Room room;
 
-    ///// info complementaires /////
+    // Additional information
     public enum EntityState { CREATED, UPDATED, DELETED, PROCESSING }
 }

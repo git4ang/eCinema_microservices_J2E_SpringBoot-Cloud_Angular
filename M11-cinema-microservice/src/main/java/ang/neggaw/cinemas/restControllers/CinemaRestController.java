@@ -65,7 +65,7 @@ public class CinemaRestController {
         return ResponseEntity.ok(cinema);
     }
 
-    // **************************** Retrieve all villes ********************************* //
+    // **************************** Retrieve all Cities ********************************* //
     @GetMapping
     public ResponseEntity<Collection<Cinema>> allCinemas(){
 
@@ -111,7 +111,7 @@ public class CinemaRestController {
     }
 
 
-    // **************************** Delete a Ville ************************************** //
+    // **************************** Delete a City ************************************** //
     @DeleteMapping("/{idCinema}")
     public ResponseEntity<?> deleteCinema(@PathVariable(value = "idCinema") long idCinema) {
 

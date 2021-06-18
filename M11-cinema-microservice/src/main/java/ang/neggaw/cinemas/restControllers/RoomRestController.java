@@ -37,12 +37,27 @@ public class RoomRestController {
     }
 
     // ******************************** Get a Room ***************************************** //
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getRoom(@PathVariable(value = "id") long idRoom) {
+    @GetMapping("/{idRoom}")
+    public ResponseEntity<?> getRoom(@PathVariable(value = "idRoom") long idRoom) {
 
         log.info("Fetching Room with id: '{}'", idRoom);
 
-        Room room = roomService.getRoom(idRoom);
+        Room room = roomService.getRoom(idRoom, false);
+        if (room == null) {
+            String error = String.format("Unable to find Room entity with id: '%s'", idRoom);
+            log.error(error);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+        return ResponseEntity.ok().body(room);
+    }
+
+    @GetMapping("/{idRoom}/{isFullRoom}")
+    public ResponseEntity<?> getRoom(@PathVariable(value = "idRoom") long idRoom,
+                                     @PathVariable(value = "isFullRoom") boolean isFullRoom) {
+
+        log.info("Fetching full Room with id: '{}'", idRoom);
+
+        Room room = roomService.getRoom(idRoom, isFullRoom);
         if (room == null) {
             String error = String.format("Unable to find Room entity with id: '%s'", idRoom);
             log.error(error);

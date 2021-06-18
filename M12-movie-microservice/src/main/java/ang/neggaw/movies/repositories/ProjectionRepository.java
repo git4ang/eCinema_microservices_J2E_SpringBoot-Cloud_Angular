@@ -9,5 +9,5 @@ import java.util.Date;
 @RepositoryRestResource
 public interface ProjectionRepository extends JpaRepository<MovieProjection, Long> {
     MovieProjection findByIdProjection(long idProjection);
-    MovieProjection findByDateProjectionAndIdRoom(Date dateProj, long idRoom);
+    MovieProjection findByDateProjectionAndIdMovie(Date dateProj, long idMovie);
 }

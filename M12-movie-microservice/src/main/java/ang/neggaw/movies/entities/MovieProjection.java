@@ -1,6 +1,7 @@
 package ang.neggaw.movies.entities;
 
 import ang.neggaw.movies.beans.RoomProxy;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,8 +35,10 @@ public class MovieProjection {
 
     @ManyToOne
     @JoinColumn(name = "movie", referencedColumnName = "idMovie")
+    @JsonIgnoreProperties(value = {"projections", "category"})
     private Movie movie;
 
+    @JsonIgnoreProperties(value = {"projection"})
     @OneToMany(mappedBy = "projection", cascade = {CascadeType.ALL})
     private Collection<MovieSession> sessions;
 

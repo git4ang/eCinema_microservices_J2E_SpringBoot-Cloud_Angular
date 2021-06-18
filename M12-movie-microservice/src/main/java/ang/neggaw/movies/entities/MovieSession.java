@@ -1,5 +1,6 @@
 package ang.neggaw.movies.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class MovieSession {
     private long idProjection;
 
     @ManyToOne
+    @JsonIgnoreProperties(value = {"sessions"})
     private MovieProjection projection;
 
     // Additional information

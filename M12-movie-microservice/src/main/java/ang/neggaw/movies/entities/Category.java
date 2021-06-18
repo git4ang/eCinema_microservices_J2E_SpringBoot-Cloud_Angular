@@ -1,5 +1,6 @@
 package ang.neggaw.movies.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Category {
     @Enumerated(EnumType.STRING)
     private EntityState entityState;
 
+    @JsonIgnoreProperties(value = {"category"})
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private Collection<Movie> movies;
 

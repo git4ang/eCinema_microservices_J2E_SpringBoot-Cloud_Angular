@@ -53,7 +53,7 @@ public class Cinema implements Serializable {
     @ToString.Exclude
     private Collection<CityProxy> cities;
 
-    // Informations complementaires
+    // Additional information
     public Cinema (){
         this.rooms = new ArrayList<>();
         this.cities = new ArrayList<>();

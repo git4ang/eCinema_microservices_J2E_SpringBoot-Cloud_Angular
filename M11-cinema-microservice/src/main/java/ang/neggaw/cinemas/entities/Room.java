@@ -1,11 +1,14 @@
 package ang.neggaw.cinemas.entities;
 
+import ang.neggaw.cinemas.beans.ProjectionProxy;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_rooms")
@@ -40,6 +43,20 @@ public class Room implements Serializable {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private Collection<Seat> seats;
 
-    // Info complementaires
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ToString.Exclude
+    private long idProj;
+
+    @ElementCollection
+    @JoinTable(name = "rooms_projections", joinColumns = @JoinColumn(name = "idRoom"))
+    private List<Long> idsProjectionsRoom;
+
+    @Transient
+    @ToString.Exclude
+    private Collection<ProjectionProxy> projections;
+
+
+    // Additional information
     public enum EntityState { CREATED, UPDATED, DELETED, PROCESSING }
 }
