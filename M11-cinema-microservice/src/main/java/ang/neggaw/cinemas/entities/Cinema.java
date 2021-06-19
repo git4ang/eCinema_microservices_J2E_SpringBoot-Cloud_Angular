@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,12 +24,19 @@ public class Cinema implements Serializable {
     private Long idCinema;
 
     @NonNull
+    @NotEmpty(message = "Name field cannot be empty")
+    @NotNull(message = "Name field cannot be null")
+    @NotBlank(message = "Name field cannot be blank")
     private String name;
 
     @NonNull
+    @NotEmpty(message = "Address field cannot be empty")
+    @NotNull(message = "Address field cannot be null")
+    @NotBlank(message = "Address field cannot be blank")
     private String address;
 
     @NonNull
+    @PositiveOrZero(message = "numRooms should be a positive number (n > 0)")
     private int numRooms;
 
     @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL)
@@ -38,6 +46,9 @@ public class Cinema implements Serializable {
     private EntityState entityState;
 
     @NonNull
+    @Min(value = 0, message = "idCity should not be less 0 (zero)")
+    @NotNull(message = "idCity field cannot be null ")
+    @PositiveOrZero(message = "idCity should be a positive number (n > 0)")
     private long idCity;
 
     @Transient
@@ -47,7 +58,7 @@ public class Cinema implements Serializable {
 
     @ElementCollection
     @JoinTable(name = "cinemas_cities", joinColumns = @JoinColumn(name = "idCinema"))
-    private List<Long> idsCitiesCinema;
+    private List<@PositiveOrZero Long> idsCitiesCinema;
 
     @Transient
     @ToString.Exclude

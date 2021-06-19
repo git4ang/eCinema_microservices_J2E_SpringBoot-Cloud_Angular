@@ -70,9 +70,11 @@ public class ProjectionRestController {
 
         log.info("Fetching all Projection cinema...");
 
-        Collection<MovieProjection> projectionFilms = projectionService.allProjections();
-        if(projectionFilms == null) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(projectionFilms);
+        try {
+            return ResponseEntity.ok(projectionService.allProjections());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // *********************************** Update a Projection ************************************** //

@@ -58,9 +58,11 @@ public class SessionRestController {
 
         log.info("Fetching all Session of Projection...");
 
-        Collection<MovieSession> sessions = sessionService.allSessions();
-        if(sessions.isEmpty()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(sessions);
+        try {
+            return ResponseEntity.ok(sessionService.allSessions());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // *********************************** Update a Session ************************************** //

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,12 +23,16 @@ public class MovieSession implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSession;
 
+    @Temporal(TemporalType.TIME)
     private Date movieStartTime;
 
     @Enumerated(EnumType.STRING)
     private EntityState entityState;
 
     @NonNull
+    @Min(value = 0, message = "idProjection should not be less 0 (zero)")
+    @NotNull(message = "idProjection field cannot be null ")
+    @PositiveOrZero(message = "idProjection should be a positive number (n > 0)")
     private long idProjection;
 
     @ManyToOne

@@ -4,7 +4,6 @@ import ang.neggaw.cities.entities.City;
 import ang.neggaw.cities.services.CityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,17 +21,17 @@ public class CityRestController {
 
     // ****************************** Create a City ******************************* //
     @PostMapping
-    public ResponseEntity<?> createCity(@Valid @RequestBody City city) {
+    public ResponseEntity<?> createCity(@Valid @RequestBody City c) {
 
-        log.info("Creating City with name: '{}'...", city.getName());
+        log.info("Creating City with name: '{}'...", c.getName());
 
-        Object cityDB = cityService.createCity(city);
+        Object cityDB = cityService.createCity(c);
         if (cityDB.getClass().getSimpleName().equals("String")) {
             log.error(cityDB);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cityDB);
         }
 
-        log.info("City with id: {} CREATED successfully.", city.getIdCity());
+        log.info("City with id: {} CREATED successfully.", c.getIdCity());
         return new ResponseEntity<>(cityDB, HttpStatus.CREATED);
     }
 
@@ -69,26 +68,26 @@ public class CityRestController {
 
     // **************************** Retrieve all citys ********************************* //
     @GetMapping
-    public ResponseEntity<Collection<?>> allCities() {
+    public ResponseEntity<Collection<City>> allCities() {
 
         log.info("Fetching all Cities...");
 
-        Collection<City> cities = cityService.allCities();
-        if (cities.isEmpty())
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).header("Content-Length", "0").build();
-
-        return ResponseEntity.ok(cities);
+        try {
+            return ResponseEntity.ok(cityService.allCities());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // **************************** Update a City ************************************** //
     @PutMapping("/{idCity}")
     public ResponseEntity<?> updateCity(@PathVariable(value = "idCity") long idCity,
-                                             @Valid @RequestBody City v) {
+                                        @Valid @RequestBody City c) {
 
         log.info("Updating City with id: {}", idCity);
 
-        v.setIdCity(idCity);
-        Object cityDB = cityService.updateCity(v);
+        c.setIdCity(idCity);
+        Object cityDB = cityService.updateCity(c);
         if (cityDB.getClass().getSimpleName().equals("String")) {
             log.error(cityDB);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(cityDB);

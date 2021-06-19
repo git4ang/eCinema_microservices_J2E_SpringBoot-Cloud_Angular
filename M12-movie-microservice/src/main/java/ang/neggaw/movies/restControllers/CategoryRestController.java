@@ -60,17 +60,18 @@ public class CategoryRestController {
 
         log.info("Fetching all Categories of Movie...");
 
-        Collection<Category> categories = categoryService.allCategories();
-        if (categories.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
-        return ResponseEntity.ok(categories);
+        try {
+            return ResponseEntity.ok(categoryService.allCategories());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
 
     // *********************************** Update a Category ************************************** //
     @PutMapping("/{idCat}")
     public ResponseEntity<?> updateCategory(@PathVariable(value = "idCat") long idCat,
-                                                   @Valid @RequestBody Category category) {
+                                            @Valid @RequestBody Category category) {
 
         log.info("Updating Category with id: '{}'.", category.getIdCategory());
 

@@ -57,15 +57,17 @@ public class MovieRestController {
 
         log.info("Fetching all Movies of Cinema...");
 
-        Collection<Movie> movies = movieService.allMovies();
-        if(movies.isEmpty()) return ResponseEntity.noContent().build();
-        return ResponseEntity.ok(movies);
+        try {
+            return ResponseEntity.ok(movieService.allMovies());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // *********************************** Update a Movie ************************************** //
     @PutMapping("/{idMovie}")
     public ResponseEntity<?> updateMovie(@PathVariable(value = "idMovie") long idMovie,
-                                           @Valid @RequestBody Movie movie) {
+                                         @Valid @RequestBody Movie movie) {
 
         log.info("Updating Movie with title: '{}'.", movie.getTitle());
 

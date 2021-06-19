@@ -53,13 +53,15 @@ public class SeatRestController {
 
     // ********************************** All Seats ************************************ //
     @GetMapping
-    public ResponseEntity<Collection<Seat>> allSeat() {
+    public ResponseEntity<Collection<Seat>> allSeats() {
 
         log.info("Fetching all Seats cinema");
 
-        Collection<Seat> seats = seatService.allSeats();
-        if(seats.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        return ResponseEntity.ok().body(seats);
+        try {
+            return ResponseEntity.ok(seatService.allSeats());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // ********************************** Update a Seat ******************************** //

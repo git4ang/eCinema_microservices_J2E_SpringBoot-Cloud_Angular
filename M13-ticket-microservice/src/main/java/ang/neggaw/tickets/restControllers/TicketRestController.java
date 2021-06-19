@@ -58,10 +58,11 @@ public class TicketRestController {
 
         log.info("Fetching all Tickets of Cinema ...");
 
-        Collection<MovieTicket> tickets = ticketService.allTickets();
-        if(tickets.isEmpty()) return ResponseEntity.noContent().build();
-
-        return ResponseEntity.ok(tickets);
+        try {
+            return ResponseEntity.ok(ticketService.allTickets());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // ********************************* Update a Ticket ******************************************* //

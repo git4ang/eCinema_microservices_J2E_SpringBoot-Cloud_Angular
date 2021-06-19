@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,6 +26,9 @@ public class Category implements Serializable {
 
     @NonNull
     @Column(unique = true)
+    @NotEmpty(message = "Name field cannot be empty")
+    @NotNull(message = "Name field cannot be null")
+    @NotBlank(message = "Name field cannot be blank")
     private String name;
 
     @Enumerated(EnumType.STRING)

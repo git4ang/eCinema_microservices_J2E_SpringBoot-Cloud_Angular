@@ -71,10 +71,11 @@ public class RoomRestController {
     public ResponseEntity<Collection<Room>> allRooms() {
         log.info("Fetching all Rooms cinema");
 
-        Collection<Room> rooms = roomService.allRooms();
-        if (rooms.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
-        return ResponseEntity.ok().body(rooms);
+        try {
+            return ResponseEntity.ok(roomService.allRooms());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // ******************************** Update a Room ************************************** //

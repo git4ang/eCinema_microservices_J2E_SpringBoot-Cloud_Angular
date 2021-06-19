@@ -71,10 +71,11 @@ public class CinemaRestController {
 
         log.info("Fetching all Cinemas ...");
 
-        Collection<Cinema> cinemas = cinemaService.allCinemas();
-        if (cinemas.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-
-        return ResponseEntity.ok(cinemas);
+        try {
+            return ResponseEntity.ok(cinemaService.allCinemas());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
     }
 
     // **************************** Update a Cinema ************************************* //
