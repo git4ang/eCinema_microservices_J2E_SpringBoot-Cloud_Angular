@@ -51,30 +51,30 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
   - [x] M13-ticket-microservice module creation.
     - Set up the M13-ticket-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
   ***
-  - [ ] **Zipkin server** and **Sleuth** for all microservices modules.
-    - [ ] **M10-city-microservice**
-    - [ ] **M11-cinema-microservice**
-    - [ ] **M12-movie-microservice**
-    - [ ] **M13-ticket-microservice**
+  - [x] **Zipkin server** and **Sleuth** for all microservices modules.
+    - [x] **M10-city-microservice**
+    - [x] **M11-cinema-microservice**
+    - [x] **M12-movie-microservice**
+    - [x] **M13-ticket-microservice**
     - **Docker:** docker run -d -p 9411:9411 openzipkin/zipkin
     - **Java:** curl -sSL https://zipkin.io/quickstart.sh | bash -s java -jar zipkin.jar
   ***    
-  - [ ] Swagger2 config for all microservices modules.
-    - [ ] **M10-city-microservice**
-    - [ ] **M11-cinema-microservice**
-    - [ ] **M12-movie-microservice**
-    - [ ] **M13-ticket-microservice**
-      - [**Swagger-url employee**] (http://localhost:8080/city-microservice/swagger-ui/)
+  - [x] Swagger2 config for all microservices modules.
+    - [x] **M10-city-microservice**
+    - [x] **M11-cinema-microservice**
+    - [x] **M12-movie-microservice**
+    - [x] **M13-ticket-microservice**
+      - [**Swagger-url employee**] (http://localhost:8080/cinema-microservice/swagger-ui/)
+  ***
+   - [x] Validations JPA for the module **M10-city-microservice**.
+   - [x] Validations JPA for the module **M11-cinema-microservice**.
+   - [x] Validations JPA for the module **M12-movie-microservice**.
+   - [x] Validations JPA for the module **M13-ticket-microservice**.
   ***    
-   - [ ] Unit Tests for the module **M10-city-microservice**.
-   - [ ] Unit Tests for the module **M11-cinema-microservice**.
-   - [ ] Unit Tests for the module **M12-movie-microservice**.
-   - [ ] Unit Tests for the module **M13-ticket-microservice**.
-   ***
-   - [ ] Validations JPA for the module **M10-city-microservice**.
-   - [ ] Validations JPA for the module **M11-cinema-microservice**.
-   - [ ] Validations JPA for the module **M12-movie-microservice**.
-   - [ ] Validations JPA for the module **M13-ticket-microservice**.
+   - [x] Unit Tests for the module **M10-city-microservice**.
+   - [x] Unit Tests for the module **M11-cinema-microservice**.
+   - [x] Unit Tests for the module **M12-movie-microservice**.
+   - [x] Unit Tests for the module **M13-ticket-microservice**.
    ***
    - [ ] Spring Security for the **M01-config-server** 
    - [ ] Spring Security for the **M02-eureka-server** 
