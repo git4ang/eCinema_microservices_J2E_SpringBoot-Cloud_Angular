@@ -23,6 +23,7 @@ public class Movie implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMovie;
 
+    @NonNull
     @NotEmpty(message = "title field cannot be empty")
     @NotNull(message = "title field cannot be null")
     @NotBlank(message = "title field cannot be blank")

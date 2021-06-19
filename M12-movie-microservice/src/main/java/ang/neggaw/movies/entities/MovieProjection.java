@@ -28,6 +28,7 @@ public class MovieProjection implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProjection;
 
+    @NonNull
     @Temporal(TemporalType.DATE)
     private Date dateProjection;
 

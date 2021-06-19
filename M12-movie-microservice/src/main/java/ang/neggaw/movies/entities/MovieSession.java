@@ -23,6 +23,7 @@ public class MovieSession implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSession;
 
+    @NonNull
     @Temporal(TemporalType.TIME)
     private Date movieStartTime;
 

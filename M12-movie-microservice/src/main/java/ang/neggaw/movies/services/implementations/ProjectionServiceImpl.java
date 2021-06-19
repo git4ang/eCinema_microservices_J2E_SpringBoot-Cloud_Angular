@@ -29,7 +29,7 @@ public class ProjectionServiceImpl implements ProjectionService {
     @Override
     public Object createProjection(MovieProjection p) {
 
-        MovieProjection projectionDB = projectionRepository.findByDateProjectionAndIdMovie(p.getDateProjection(), p.getIdMovie());
+        MovieProjection projectionDB = projectionRepository.findByDateProjectionAndIdMovieAndIdRoom(p.getDateProjection(), p.getIdMovie(), p.getIdRoom());
         if(projectionDB != null) return String.format("Projection already exists: '%s'.", p);
 
         // RoomProxy
@@ -64,7 +64,7 @@ public class ProjectionServiceImpl implements ProjectionService {
         MovieProjection movieProjection = projectionRepository.findByIdProjection(idProj);
         if(movieProjection == null) return String.format("Unable to update. Projection with id: '%s' Not Found.", idProj);
 
-        if (isFullProjection && movieProjection.getRoom() != null)
+        if (isFullProjection && movieProjection.getRoom() == null)
             movieProjection.setRoom(roomRestProxy.getRoom(movieProjection.getIdRoom()).getBody());
         return movieProjection;
     }
@@ -128,11 +128,10 @@ public class ProjectionServiceImpl implements ProjectionService {
 
         MovieProjection projection = (MovieProjection) getProjection(idProj, true);
         if (projection == null) return String.format("Unable to delete. Projection with id: '%s' Not Found.", idProj);
-        else {
-            projection.getRoom().setEntityState(MovieSession.EntityState.PROCESSING);
-            projection.getRoom().getIdsProjectionsRoom().removeIf(id -> id.equals(idProj));
-            roomRestProxy.updateRoom(projection.getIdRoom(), projection.getRoom());
-        }
+
+        projection.getRoom().setEntityState(MovieSession.EntityState.PROCESSING);
+        projection.getRoom().getIdsProjectionsRoom().removeIf(id -> id.equals(idProj));
+        roomRestProxy.updateRoom(projection.getIdRoom(), projection.getRoom());
 
         projection.setEntityState(MovieProjection.EntityState.DELETED);
         projectionRepository.delete(projection);
