@@ -27,16 +27,16 @@ public class CityServiceImpl implements CityService {
         if (cityDB != null) return String.format("City already exists with name: '%s'", cityDB.getName());
 
         c.setEntityState(City.EntityState.CREATED);
+        c.setIdCinema(0);
+        c.setCinema(null);
         return cityRepository.save(c);
     }
 
     @Override
     public City getCity(long idCity, boolean isFullCity) {
         City cityDB = cityRepository.findByIdCity(idCity);
-        if( isFullCity && cityDB != null && ! cityDB.getIdsCinemasCity().isEmpty()) {
+        if( isFullCity && cityDB != null && ! cityDB.getIdsCinemasCity().isEmpty())
             cityDB.getIdsCinemasCity().forEach(id -> cityDB.getCinemas().add(cinemaRestProxy.getCinema(id).getBody()));
-        }
-
         return cityDB;
     }
 
@@ -56,6 +56,8 @@ public class CityServiceImpl implements CityService {
 
         c.setEntityState(City.EntityState.UPDATED);
         c.setIdsCinemasCity(cityDB.getIdsCinemasCity());
+        c.setIdCinema(0);
+        c.setCinema(null);
         return cityRepository.saveAndFlush(c);
     }
 
