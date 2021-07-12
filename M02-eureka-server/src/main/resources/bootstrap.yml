@@ -10,6 +10,15 @@ spring:
   profiles:
     active: dev, test, native
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
 logging:
   level:
-    org.springframework.cloud: DEBUG
+    org.springframework.cloud: error
