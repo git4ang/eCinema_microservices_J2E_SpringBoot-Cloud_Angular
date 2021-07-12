@@ -5,6 +5,8 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+      username: admin
+      password: config
   profiles:
     active: dev, test, native
 

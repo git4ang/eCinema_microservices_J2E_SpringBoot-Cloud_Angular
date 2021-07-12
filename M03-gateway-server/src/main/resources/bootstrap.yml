@@ -5,6 +5,8 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+      username: admin
+      password: config
 
     gateway:
       routes:
@@ -59,5 +61,5 @@ spring:
 
 logging:
   level:
-    org.springframework.cloud.gateway: debug
-    reactor.netty.http.client: DEBUG
+    org.springframework.cloud.gateway: error
+    reactor.netty.http.client: error

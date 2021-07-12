@@ -31,4 +31,4 @@ management:
 
 logging:
   level:
-    org.springframework.cloud: DEBUG
+    org.springframework.cloud: error
