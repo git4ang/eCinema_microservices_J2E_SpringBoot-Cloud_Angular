@@ -115,25 +115,26 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - [x] Validations JPA for the module **M00-user-microservice**.
 
 ***
-- [ ] Spring Security for the **M01-config-server**
-- [ ] Spring Security for the **M02-eureka-server**
-- [ ] Spring Security for the **M03-gateway-server**
-- [ ] Spring Security & JWT for the **M10-city-microservice**
-- [ ] Spring Security & JWT for the **M11-cinema-microservice**
-- [ ] Spring Security & JWT for the **M12-movie-microservice**
-- [ ] Spring Security & JWT for the **M13-ticket-microservice**
-- [ ] Spring Security & JWT for the **M00-user-microservice**
+- [x] Spring Security for the **M01-config-server**
+- [x] Spring Security for the **M02-eureka-server**
+- [x] Spring Security for the **M03-gateway-server**
+- [x] Spring Security for the **M10-city-microservice**
+- [x] Spring Security for the **M11-cinema-microservice**
+- [x] Spring Security for the **M12-movie-microservice**
+- [x] Spring Security for the **M13-ticket-microservice**
+- [x] Spring Security for the **M00-user-microservice**
 
 ***
-- [ ] **JWT (Json Web Token)** for the M03-Gateway-server & all microservices
-
-***
-- [ ] Spring Boot Admin/Client for all microservices.
+- [x] Spring Boot Admin/Client for all microservices.
     - codecentric’s Spring Boot Admin is a community project to manage and monitor your Spring Boot ® applications. The applications register with our Spring Boot Admin Client (via HTTP) or are discovered using Spring Cloud ® (e.g. Eureka, Consul). The UI is just a Vue.js application on top of the Spring Boot Actuator endpoints.
 
 ***
-- [ ] Change Swagger 2.0 by OpenApi 3.0 Specification in all microservices
+- [x] Changing Swagger2 for OpenApi 3.0 Specification. Microservices (from M10 to M13)
     - [**OpenApi-url cinema**] => (http://localhost:8080/cinema-microservice/swagger-ui.html/)
+    - [**OpenApi-docs cinema**] => (http://localhost:8080/cinema-microservice/api-docs)
+
+***
+- [ ] **Changing spring security for JWT (Json Web Token)** on M03-Gateway-server & all microservices.
 
 ***
 - [ ] Unit Tests for the module **M10-city-microservice**.
@@ -143,7 +144,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - [ ] Unit Tests for the module **M00-user-microservice**.
 
 ***   
-- [ ] ELK - Elasticsearch, logstash & kibana.
+- [ ] ELK - Elasticsearch, Logstash & Kibana.
     - "ELK" is the acronym for three open source projects: Elasticsearch, Logstash, and Kibana. Elasticsearch is a search and analytics engine. Logstash is a server‑side data processing pipeline that ingests data from multiple sources simultaneously, transforms it, and then sends it to a "stash" like Elasticsearch. Kibana lets users visualize data with charts and graphs in Elasticsearch.
 
 
