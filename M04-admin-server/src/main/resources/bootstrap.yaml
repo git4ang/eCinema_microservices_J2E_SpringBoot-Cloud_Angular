@@ -10,3 +10,7 @@ spring:
     admin:
       discovery:
         ignored-services: ${spring.application.name}
+
+logging:
+  level:
+    org.springframework.cloud: error
