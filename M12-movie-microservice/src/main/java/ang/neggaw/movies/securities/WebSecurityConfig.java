@@ -79,9 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static String[] permittedUrl() {
         return new String[]{
                 "/css", "/js", "/images", "/webjars", "/favicon.ico", "/index", "/login", "/logout", "/home",
-                "/actuator/**", "/api/categories/**", "/api/movies/**", "/api/projections/**", "/api/sessions/**",
-                "/v3/api-docs/**", "/swagger-resources/configuration/ui", "/swagger-resources","/swagger-resources/configuration/security", "*/swagger-ui.html",
-                "/h2/**", "/h2-console/**"
+                "/actuator/**", "/h2/**", "/h2-console/**", "/swagger-ui.html", "/api-docs", "/api/categories/**", "/api/movies/**", "/api/projections/**", "/api/sessions/**",
         };
     }
 }

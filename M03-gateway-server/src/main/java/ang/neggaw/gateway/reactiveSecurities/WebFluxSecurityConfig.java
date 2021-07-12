@@ -38,6 +38,7 @@ public class WebFluxSecurityConfig {
 
         return http
                 .csrf().disable()
+                .httpBasic().and()
                 .exceptionHandling()
                 .authenticationEntryPoint((swe, e) -> Mono.fromRunnable(() -> {
                             log.error("authenticationEntryPoint: {} {}. Error message: {}", swe.getRequest().getRemoteAddress(), swe.getRequest().getPath(), e.getMessage());
@@ -56,11 +57,8 @@ public class WebFluxSecurityConfig {
                 .and()
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers(authenticatedMicroservicesUrl()).authenticated()
-                .anyExchange().denyAll().and()
-                .formLogin().disable()
-                .httpBasic().and()
-                .logout().disable()
+                .pathMatchers(authenticatedMicroservicesUrl()).authenticated().and()
+                //.anyExchange().denyAll().and()
                 .headers().frameOptions().mode(XFrameOptionsServerHttpHeadersWriter.Mode.SAMEORIGIN).and()
                 .build();
     }
@@ -68,10 +66,12 @@ public class WebFluxSecurityConfig {
     private static String[] authenticatedMicroservicesUrl() {
         return new String[]{
             "/user-microservice/**",
-            "/city-microservice/**",
+            "/city-microservice/**", "/city-microservice/api/cities",
             "/cinema-microservice/**",
             "/movie-microservice/**",
-            "/ticket-microservice/**"
+            "/ticket-microservice/**",
+            "/swagger-ui/**"
+
         };
     }
 

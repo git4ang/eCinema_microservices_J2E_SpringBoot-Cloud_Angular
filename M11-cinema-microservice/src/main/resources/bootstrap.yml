@@ -8,6 +8,25 @@ spring:
       username: admin
       password: config
 
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui.html"
+    show-extensions: true
+    show-common-extensions: true
+  api-docs:
+    path: "/api-docs"
+  packages-to-scan: {
+                      "ang.neggaw.cinemas.restControllers",
+                      "ang.neggaw.rooms.restControllers",
+                      "ang.neggaw.seats.restControllers"
+                    }
+  paths-to-match: {
+                    "/api/cinemas/**, /cinemas/**",
+                    "/api/rooms/**, /rooms/**",
+                    "/api/seats/**, /seats/**"
+                  }
+  show-actuator: true
+
 logging:
   level:
     org.springframework.web: error

@@ -53,9 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .cors(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .exceptionHandling()
-                .authenticationEntryPoint((req, resp, e) -> {
-                    resp.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
-                    log.error(e.getMessage());
+                .authenticationEntryPoint((request, response, e) -> {
+                    response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
                 }).and()
                 .exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl() {
             @Override
@@ -63,7 +62,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                HttpServletResponse response,
                                AccessDeniedException e) throws IOException, ServletException {
                 response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
-                log.error(e.getMessage());
             }
         }).and()
                 .headers()
@@ -79,9 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static String[] permittedUrl() {
         return new String[]{
                 "/css", "/js", "/images", "/webjars", "/favicon.ico", "/index", "/login", "/logout", "/home",
-                "/actuator/**", "/api/cities/**",
-                "/v3/api-docs/**", "/swagger-resources/configuration/ui", "/swagger-resources","/swagger-resources/configuration/security", "*/swagger-ui.html",
-                "/h2/**", "/h2-console/**"
+                "/actuator/**", "/h2/**", "/h2-console/**", "/swagger-ui.html", "/api-docs", "/api/cities/**"
         };
     }
 }
