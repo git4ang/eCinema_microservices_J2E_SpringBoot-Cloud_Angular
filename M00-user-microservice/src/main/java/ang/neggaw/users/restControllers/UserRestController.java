@@ -29,7 +29,7 @@ public class UserRestController {
 
 
     @PostMapping
-    Mono<Object> createUser(@Valid @RequestBody UserReact userReact) {
+    public Mono<Object> createUser(@Valid @RequestBody UserReact userReact) {
         return userService.createUser(userReact)
                 .map(u -> {
                     log.info("User with id: '{}' CREATED successfully.", u.getIdUser());
@@ -44,7 +44,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/{idUser}")
-    Mono<Object> getUserById(@PathVariable(value = "idUser") String idUser) {
+    public Mono<Object> getUserById(@PathVariable(value = "idUser") String idUser) {
         return userService.getUserById(idUser)
                 .map(userDB -> ResponseEntity.status(HttpStatus.OK).body(userDB))
                 .cast(Object.class)
@@ -55,7 +55,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/names/{name}")
-    Mono<Object> getUserByUsername(@PathVariable(value = "name")String username) {
+    public Mono<Object> getUserByUsername(@PathVariable(value = "name")String username) {
         return userService.getUserByUsername(username)
                 .map(userDB -> ResponseEntity.status(HttpStatus.OK).body(userDB))
                 .cast(Object.class)
@@ -66,7 +66,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/emails/{email}")
-    Mono<Object> getUserByEmail(@PathVariable(value = "email") String email) {
+    public Mono<Object> getUserByEmail(@PathVariable(value = "email") String email) {
         return userService.getUserByEmail(email)
                 .map(userDB -> ResponseEntity.status(HttpStatus.OK).body(userDB))
                 .cast(Object.class)
@@ -77,7 +77,7 @@ public class UserRestController {
     }
 
     @GetMapping
-    Flux<Object> allUsers() {
+    public Flux<Object> allUsers() {
         return userService.allUsers()
                 .map(usersDB -> ResponseEntity.status(HttpStatus.OK).body(usersDB))
                 .cast(Object.class)
@@ -88,7 +88,7 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/multiUsers/ids")
-    Flux<Object> allUsersByIds(List<String> usersIds) {
+    public Flux<Object> allUsersByIds(List<String> usersIds) {
         return userService.allUsersByIds(usersIds)
                 .map(usersDB -> ResponseEntity.status(HttpStatus.OK).body(usersDB))
                 .cast(Object.class)
@@ -99,7 +99,7 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/{idUser}")
-    Mono<Object> updateUser(@PathVariable(value = "idUser") String idUser,
+    public Mono<Object> updateUser(@PathVariable(value = "idUser") String idUser,
                             @Valid @RequestBody UserReact userReact) {
         return userService.getUserById(idUser)
                 .map(userDB -> {
@@ -131,7 +131,7 @@ public class UserRestController {
     }
 
     @DeleteMapping(value = "/{idUser}")
-    Mono<Object> deleteUserById(@PathVariable(value = "idUser") String idUser) {
+    public Mono<Object> deleteUserById(@PathVariable(value = "idUser") String idUser) {
 
         return userService.deleteUserById(idUser)
                 .map(userDB -> {
@@ -146,7 +146,7 @@ public class UserRestController {
     }
 
     @DeleteMapping(value = "/names/{username}")
-    Mono<Object> deleteUserByUsername(@PathVariable(value = "username") String username) {
+    public Mono<Object> deleteUserByUsername(@PathVariable(value = "username") String username) {
 
         return userService.deleteUserByUsername(username)
                 .map(userDB -> {

@@ -28,74 +28,107 @@ public class RoleRestController {
     private final RoleService roleService;
 
     @PostMapping
-    public Mono<ResponseEntity<RoleReact>> createRole(@Valid @RequestBody RoleReact roleReact) {
+    public Mono<Object> createRole(@Valid @RequestBody RoleReact roleReact) {
         return roleService.createRole(roleReact)
                 .map(r -> {
                     log.info("Role with id: '{}' CREATED successfully.", r.getIdRole());
                     return ResponseEntity.status(HttpStatus.CREATED).body(r);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
+
     }
 
     @GetMapping(value = "/{idRole}")
-    public Mono<ResponseEntity<RoleReact>> getRoleById(@PathVariable(value = "idRole") String idRole) {
+    public Mono<Object> getRoleById(@PathVariable(value = "idRole") String idRole) {
         return roleService.getRoleById(idRole)
                 .map(roleDB -> ResponseEntity.status(HttpStatus.OK).body(roleDB))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()));
+                });
     }
 
     @GetMapping(value = "/names/{name}")
-    public Mono<ResponseEntity<RoleReact>> getRoleByName(@PathVariable(value = "name") String name) {
+    public Mono<Object> getRoleByName(@PathVariable(value = "name") String name) {
         return roleService.getRoleByRoleName(name)
                 .map(roleDB -> ResponseEntity.status(HttpStatus.OK).body(roleDB))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()));
+                });
     }
 
     @GetMapping
-    public Flux<ResponseEntity<RoleReact>> allRoles() {
+    public Flux<Object> allRoles() {
         return roleService.allRoles()
                 .map(roles -> ResponseEntity.status(HttpStatus.OK).body(roles))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage()));
+                });
     }
 
     @GetMapping(value = "/multiRoles/ids")
-    public Flux<ResponseEntity<RoleReact>> multiRolesByIds(List<String> rolesIds) {
+    public Flux<Object> multiRolesByIds(List<String> rolesIds) {
         return roleService.allRolesByIds(rolesIds)
                 .map(roles -> ResponseEntity.status(HttpStatus.OK).body(roles))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage()));
+                });
     }
 
     @PutMapping(value = "/{idRole}")
-    public Mono<ResponseEntity<RoleReact>> updateRoleById(@PathVariable(value = "idRole") String idRole,
+    public Mono<Object> updateRoleById(@PathVariable(value = "idRole") String idRole,
                                                           @Valid @RequestBody RoleReact roleReact) {
         return roleService.updateRole(idRole, roleReact)
                 .map(roleDB -> {
                     log.info("Role with id: '{}' UPDATED successfully.", roleDB.getIdRole());
                     return ResponseEntity.status(HttpStatus.OK).body(roleDB);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
 
     }
 
     @DeleteMapping(value = "/{idRole}")
-    public Mono<ResponseEntity<RoleReact>> deleteRoleById(@PathVariable(value = "idRole") String idRole) {
+    public Mono<Object> deleteRoleById(@PathVariable(value = "idRole") String idRole) {
 
         return roleService.deleteRoleById(idRole)
                 .map(roleDB -> {
                     log.info("Role with id: '{}' DELETED successfully.", idRole);
                     return ResponseEntity.status(HttpStatus.ACCEPTED).body(roleDB);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 
     @DeleteMapping(value = "/names/{roleName}")
-    public Mono<ResponseEntity<RoleReact>> deleteRoleByRoleName(@PathVariable(value = "roleName") String roleName) {
+    public Mono<Object> deleteRoleByRoleName(@PathVariable(value = "roleName") String roleName) {
 
         return roleService.deleteRoleByRoleName(roleName)
                 .map(roleDB -> {
                     log.info("Role with roleName: '{}' DELETED successfully.", roleName);
                     return ResponseEntity.status(HttpStatus.ACCEPTED).body(roleDB);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 }

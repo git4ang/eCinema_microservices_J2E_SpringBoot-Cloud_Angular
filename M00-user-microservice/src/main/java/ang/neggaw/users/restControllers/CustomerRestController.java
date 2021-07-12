@@ -30,61 +30,89 @@ public class CustomerRestController {
     private final CustomerService customerService;
 
     @PostMapping
-    public Mono<ResponseEntity<CustomerReact>> createCustomer(@Valid @RequestBody CustomerReact customer) {
+    public Mono<Object> createCustomer(@Valid @RequestBody CustomerReact customer) {
         return customerService.createCustomer(customer)
                 .map(c -> {
                     log.info("Customer with id: '{}' CREATED successfully", c.getIdCustomer());
                     return ResponseEntity.status(HttpStatus.CREATED).body(c);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 
     @GetMapping(value = "/{idCustomer}")
-    public Mono<ResponseEntity<CustomerReact>> getCustomerById(@PathVariable(value = "idCustomer") String idCustomer) {
+    public Mono<Object> getCustomerById(@PathVariable(value = "idCustomer") String idCustomer) {
         return customerService.getCustomerById(idCustomer)
                 .map(c -> ResponseEntity.status(HttpStatus.OK).body(c))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage()));
+                });
     }
 
     @GetMapping(value = "/names/{name}")
-    public Flux<ResponseEntity<CustomerReact>> allCustomersByName(@PathVariable(value = "name") String name) {
+    public Flux<Object> allCustomersByName(@PathVariable(value = "name") String name) {
         return customerService.allCustomersByName(name)
                 .map(cs -> ResponseEntity.status(HttpStatus.OK).body(cs))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage()));
+                });
     }
 
     @PostMapping(value = "/multiCustomers/ids")
-    public Flux<ResponseEntity<CustomerReact>> allCustomersByIds(@RequestBody List<String> customersIds) {
+    public Flux<Object> allCustomersByIds(@RequestBody List<String> customersIds) {
         return customerService.allCustomersByIds(customersIds)
                 .map(cs -> ResponseEntity.status(HttpStatus.OK).body(cs))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage()));
+                });
     }
 
     @GetMapping
-    public Flux<ResponseEntity<CustomerReact>> allCustomers() {
+    public Flux<Object> allCustomers() {
         return customerService.allCustomers()
                 .map(cs -> ResponseEntity.status(HttpStatus.OK).body(cs))
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage()));
+                });
     }
 
     @PutMapping(value = "/{idCustomer}")
-    public Mono<ResponseEntity<CustomerReact>> updateCustomer(@PathVariable(value = "idCustomer") String idCustomer,
+    public Mono<Object> updateCustomer(@PathVariable(value = "idCustomer") String idCustomer,
                                                               @Valid @RequestBody CustomerReact customerReact) {
         return customerService.updateCustomer(idCustomer, customerReact)
                 .map(c -> {
                     log.info("Customer with id: '{}' UPDATED successfully", idCustomer);
                     return ResponseEntity.status(HttpStatus.OK).body(c);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 
     @DeleteMapping(value = "/{idCustomer}")
-    public Mono<ResponseEntity<CustomerReact>> deleteCustomer(@PathVariable(value = "idCustomer") String idCustomer) {
+    public Mono<Object> deleteCustomer(@PathVariable(value = "idCustomer") String idCustomer) {
         return customerService.deleteCustomer(idCustomer)
                 .map(customerDB -> {
                     log.info("Customer with id: '{}' DELETED successfully", idCustomer);
                     return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDB);
                 })
-                .defaultIfEmpty(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+                .cast(Object.class)
+                .onErrorResume(e -> {
+                    log.error(e.getMessage());
+                    return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()));
+                });
     }
 }
