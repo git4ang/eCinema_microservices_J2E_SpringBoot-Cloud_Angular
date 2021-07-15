@@ -10,13 +10,13 @@ spring:
 
 springdoc:
   swagger-ui:
-    path: "/swagger-ui.html"
     show-extensions: true
     show-common-extensions: true
+    path: "/open-api/swagger-ui.html"
   api-docs:
-    path: "/api-docs"
+    path: "/open-api/api-docs"
   packages-to-scan: "ang.neggaw.cities.restControllers"
-  paths-to-match: "/api/cities/**, /cities/**"
+  paths-to-match: { "/api/cities/**", "/cities/**" }
   show-actuator: true
 
 logging:

@@ -18,6 +18,7 @@ public class RoutesMicroservicesConfig {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder routeLocatorBuilder) {
         return routeLocatorBuilder.routes()
+
                 .route("cityRoute", predicate -> predicate.path("/api/cities/**").uri("LB://CITY-MICROSERVICE"))
 
                 .route("cinemaRoute", predicate -> predicate.path("/api/cinemas/**").uri("LB://CINEMA-MICROSERVICE"))

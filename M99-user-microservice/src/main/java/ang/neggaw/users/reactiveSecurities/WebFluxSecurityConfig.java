@@ -23,6 +23,8 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -50,9 +52,8 @@ public class WebFluxSecurityConfig {
                 .logout().and()
                 .exceptionHandling()
                 .authenticationEntryPoint((swe, e) -> Mono.fromRunnable(() -> {
-                    swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                     try {
-                        errorExceptionHandling(swe, e).subscribe();
+                        errorExceptionHandling(swe, e, HttpStatus.UNAUTHORIZED).subscribe();
                     } catch (JsonProcessingException eJson) {
                         eJson.printStackTrace();
                     }
@@ -60,9 +61,8 @@ public class WebFluxSecurityConfig {
                             swe.getRequest().getRemoteAddress(), swe.getRequest().getPath(), e.getMessage());
                 }))
                 .accessDeniedHandler((swe, e) -> Mono.fromRunnable(() -> {
-                    swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                     try {
-                        errorExceptionHandling(swe, e).subscribe();
+                        errorExceptionHandling(swe, e, HttpStatus.FORBIDDEN).subscribe();
                     } catch (JsonProcessingException eJson) {
                         eJson.printStackTrace();
                     }
@@ -100,13 +100,16 @@ public class WebFluxSecurityConfig {
         };
     }
 
-    private Mono<Void> errorExceptionHandling(ServerWebExchange exchange, Exception e) throws JsonProcessingException {
+    private Mono<Void> errorExceptionHandling(ServerWebExchange exchange, Exception e, HttpStatus httpStatus) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
         String body = objectMapper.writeValueAsString(Map.of(
-                "Error message", e.getMessage(),
-                "Remote address", Objects.requireNonNull(exchange.getRequest().getRemoteAddress()),
-                "Path", exchange.getRequest().getPath().value()));
+                "timestamp", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),
+                "status", httpStatus.value(),
+                "error", httpStatus,
+                "message", e.getMessage(),
+                "remote address", Objects.requireNonNull(exchange.getRequest().getRemoteAddress()),
+                "path", exchange.getRequest().getPath().value()));
         DataBuffer dataBuffer = exchange.getResponse().bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8));
         return exchange.getResponse().writeWith(Mono.just(dataBuffer));
     }

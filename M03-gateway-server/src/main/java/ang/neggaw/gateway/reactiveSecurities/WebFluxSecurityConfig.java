@@ -41,23 +41,19 @@ public class WebFluxSecurityConfig {
                 .httpBasic().and()
                 .exceptionHandling()
                 .authenticationEntryPoint((swe, e) -> Mono.fromRunnable(() -> {
-                            log.error("authenticationEntryPoint: {} {}. Error message: {}", swe.getRequest().getRemoteAddress(), swe.getRequest().getPath(), e.getMessage());
+                            log.error("authenticationEntryPoint: {} {}. Error message: {}",
+                                    swe.getRequest().getRemoteAddress(), swe.getRequest().getPath(), e.getMessage());
                             swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-                            try {
-                                String body = objectMapper.writeValueAsString(new MyHttpResponse(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), e));
-                                swe.getResponse().writeWith(Mono.just(swe.getResponse().bufferFactory().wrap(body.getBytes(StandardCharsets.UTF_8))));
-                            } catch (JsonProcessingException jsonProcessingException) {
-                                jsonProcessingException.printStackTrace();
-                            }
                         })
                 ).accessDeniedHandler((swe, e) -> Mono.fromRunnable(() -> {
-                    log.error("accessDeniedHandler: {} {}. Error message: {}", swe.getRequest().getRemoteAddress(), swe.getRequest().getPath(), e.getMessage());
+                    log.error("accessDeniedHandler: {} {}. Error message: {}",
+                            swe.getRequest().getRemoteAddress(), swe.getRequest().getPath(), e.getMessage());
                     swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
                 }))
                 .and()
                 .authorizeExchange()
                     .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                    .pathMatchers("/user-microservice/auth/login", "/actuator/**").permitAll()
+                    .pathMatchers("/user-microservice/auth/login", "/actuator/**", "/open-api/**").permitAll()
                     .pathMatchers(authenticatedMicroservicesUrl()).permitAll()
                     .anyExchange().authenticated().and()
                 .headers().frameOptions().mode(XFrameOptionsServerHttpHeadersWriter.Mode.SAMEORIGIN).and()
@@ -70,8 +66,7 @@ public class WebFluxSecurityConfig {
             "/city-microservice/**",
             "/cinema-microservice/**",
             "/movie-microservice/**",
-            "/ticket-microservice/**",
-            "/swagger-ui/**"
+            "/ticket-microservice/**"
         };
     }
 
