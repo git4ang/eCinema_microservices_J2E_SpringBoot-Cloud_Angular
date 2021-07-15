@@ -1,5 +1,6 @@
 package ang.neggaw.tickets.securities;
 
+import ang.neggaw.tickets.securities.filters.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 import javax.servlet.ServletException;
@@ -53,33 +55,47 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .cors(request -> new CorsConfiguration().applyPermitDefaultValues())
                 .exceptionHandling()
-                .authenticationEntryPoint((req, resp, e) -> {
-                    resp.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
-                    log.error(e.getMessage());
+                .authenticationEntryPoint((request, response, e) -> {
+                    log.error("Error: {}. Message: {}. Path: '{}'.", HttpStatus.UNAUTHORIZED, e.getMessage(), request.getServletPath());
+                    response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
                 }).and()
                 .exceptionHandling().accessDeniedHandler(new AccessDeniedHandlerImpl() {
             @Override
             public void handle(HttpServletRequest request,
                                HttpServletResponse response,
                                AccessDeniedException e) throws IOException, ServletException {
-                response.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
-                log.error(e.getMessage());
+                log.error("Code: {}. Message: {}. Path: '{}'.", HttpStatus.FORBIDDEN, e.getMessage(), request.getServletPath());
+                response.sendError(HttpStatus.FORBIDDEN.value(), e.getMessage());
             }
         }).and()
-                .headers()
-                .frameOptions()
-                .sameOrigin().and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(permittedUrl()).permitAll()
-                .anyRequest().authenticated().and()
-                .logout().deleteCookies("JSESSIONID");
+        .headers()
+        .frameOptions()
+        .sameOrigin().and()
+        .authorizeRequests()
+            .antMatchers(HttpMethod.OPTIONS).permitAll()
+            .antMatchers(permittedUrl()).permitAll()
+            .antMatchers(HttpMethod.GET, authenticatedUrl()).hasAnyAuthority("ADMIN", "USER")
+            .antMatchers(HttpMethod.POST, authenticatedUrl()).hasAnyAuthority("ADMIN")
+            .antMatchers(HttpMethod.PUT, authenticatedUrl()).hasAnyAuthority("ADMIN")
+            .antMatchers(HttpMethod.PATCH, authenticatedUrl()).hasAnyAuthority("ADMIN")
+            .antMatchers(HttpMethod.DELETE, authenticatedUrl()).hasAnyAuthority("ADMIN")
+            .anyRequest().authenticated().and()
+        .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+
+        .logout().deleteCookies("JSESSIONID");
     }
 
     private static String[] permittedUrl() {
         return new String[]{
                 "/css", "/js", "/images", "/webjars", "/favicon.ico", "/index", "/login", "/logout", "/home",
-                "/actuator/**", "/h2/**", "/h2-console/**", "/swagger-ui.html", "/api-docs", "/api/tickets/**",
+                "/h2/**", "/h2-console/**", "/actuator/**", "/open-api/**",
+        };
+    }
+
+    private static String[] authenticatedUrl() {
+        return new String[] {
+                "/api/tickets/**",
+                "/tickets/**",
         };
     }
 }
