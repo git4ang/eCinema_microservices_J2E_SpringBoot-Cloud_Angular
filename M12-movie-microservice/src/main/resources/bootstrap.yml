@@ -10,11 +10,11 @@ spring:
 
 springdoc:
   swagger-ui:
-    path: "/swagger-ui.html"
+    path: "/open-api/swagger-ui.html"
     show-extensions: true
     show-common-extensions: true
   api-docs:
-    path: "/api-docs"
+    path: "/open-api/api-docs"
   packages-to-scan: {
                       "ang.neggaw.categories.restControllers",
                       "ang.neggaw.movies.restControllers",
