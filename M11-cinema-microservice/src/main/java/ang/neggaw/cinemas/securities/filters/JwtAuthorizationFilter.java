@@ -1,7 +1,7 @@
-package ang.neggaw.cities.securities.filters;
+package ang.neggaw.cinemas.securities.filters;
 
-import ang.neggaw.cities.securities.models.MyHttpResponse;
-import ang.neggaw.cities.securities.services.JwtServiceImpl;
+import ang.neggaw.cinemas.securities.models.MyHttpResponse;
+import ang.neggaw.cinemas.securities.services.JwtServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,7 +19,7 @@ import java.io.IOException;
 
 /**
  * @author ANG
- * @since 13-07-2021 11:10
+ * @since 15-07-2021 20:00
  */
 
 @Log4j2
