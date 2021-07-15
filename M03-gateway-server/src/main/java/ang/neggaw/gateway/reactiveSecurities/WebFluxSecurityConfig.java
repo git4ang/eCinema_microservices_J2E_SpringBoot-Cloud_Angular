@@ -56,9 +56,10 @@ public class WebFluxSecurityConfig {
                 }))
                 .and()
                 .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers(authenticatedMicroservicesUrl()).authenticated().and()
-                //.anyExchange().denyAll().and()
+                    .pathMatchers(HttpMethod.OPTIONS).permitAll()
+                    .pathMatchers("/user-microservice/auth/login", "/actuator/**").permitAll()
+                    .pathMatchers(authenticatedMicroservicesUrl()).permitAll()
+                    .anyExchange().authenticated().and()
                 .headers().frameOptions().mode(XFrameOptionsServerHttpHeadersWriter.Mode.SAMEORIGIN).and()
                 .build();
     }
@@ -66,12 +67,11 @@ public class WebFluxSecurityConfig {
     private static String[] authenticatedMicroservicesUrl() {
         return new String[]{
             "/user-microservice/**",
-            "/city-microservice/**", "/city-microservice/api/cities",
+            "/city-microservice/**",
             "/cinema-microservice/**",
             "/movie-microservice/**",
             "/ticket-microservice/**",
             "/swagger-ui/**"
-
         };
     }
 

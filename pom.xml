@@ -32,7 +32,7 @@
         <module>M11-cinema-microservice</module>
         <module>M12-movie-microservice</module>
         <module>M13-ticket-microservice</module>
-        <module>M00-user-microservice</module>
+        <module>M99-user-microservice</module>
     </modules>
 
     <build>

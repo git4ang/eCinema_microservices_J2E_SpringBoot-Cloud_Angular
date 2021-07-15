@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class M00_UserMicroserviceApp {
+public class M99_UserMicroserviceApp {
     public static void main(String[] args) {
-        SpringApplication.run(M00_UserMicroserviceApp.class, args);
+        SpringApplication.run(M99_UserMicroserviceApp.class, args);
     }
 
     @Bean
