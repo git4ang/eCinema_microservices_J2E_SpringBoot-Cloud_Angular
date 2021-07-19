@@ -33,7 +33,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 |                           | Spring Boot Actuator
 |                           | Spring Cloud OpenFeign
 
-### Objective and detail of the project
+### Objectives and details of the project
 
 - Each **City entity** is defined by his id, a name and his coordinate position.
 - Each **Cinema entity** is defined by his id, name, address, rooms collection & City entity.
@@ -47,8 +47,8 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - Each **CustomerReact entity** is defined by his id, name, address, phoneNumber & user entity.
 - Each **RoleReact entity** is defined by his id, roleName & users collection.
 - Each **UserReact entity** is defined by his id, username, password, email, enabled & roles collection.
-
-***The last 3 entities (CustomerReact, UserReact & RoleReact) are implemented in reactive programming***
+  
+  ***(The last 3 entities (CustomerReact, UserReact & RoleReact) are implemented in reactive programming)***
 ***
 ### The creation of the project is based on the following points that will be detailed below:
 
@@ -69,6 +69,10 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
     - An API Gateway is a server that is the single entry point into the system. All requests from clients first go through the API Gateway.
       It then routes requests to the appropriate microservice.
 
+***
+- [x] **M04-admin-server** module creation.
+  - codecentric’s Spring Boot Admin is a community project to manage and monitor your Spring Boot ® applications. The applications register with our Spring Boot Admin Client (via HTTP) or are discovered using Spring Cloud ® (e.g. Eureka, Consul).
+
 ***  
 - [x] M10-city-microservice module creation.
     - Set up the M10-city-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
@@ -86,8 +90,8 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
     - Set up the M13-ticket-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
 
 ***
-- [x] M00-user-microservice module creation.
-    - Set up the M00-ticket-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
+- [x] M99-user-microservice module creation.
+    - Set up the M99-ticket-microservice module with the creation of the necessary packages such as: entities, repositories, restControllers, services, exceptions, proxies ... etc
 
 ***
 - [x] **Zipkin server** and **Sleuth** for all microservices modules.
@@ -95,7 +99,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
     - [x] **M11-cinema-microservice**
     - [x] **M12-movie-microservice**
     - [x] **M13-ticket-microservice**
-    - [x] **M00-user-microservice**
+    - [x] **M99-user-microservice**
     - **Docker:** docker run -d -p 9411:9411 openzipkin/zipkin
     - **Java:** curl -sSL https://zipkin.io/quickstart.sh | bash -s java -jar zipkin.jar
 
@@ -112,7 +116,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - [x] Validations JPA for the module **M11-cinema-microservice**.
 - [x] Validations JPA for the module **M12-movie-microservice**.
 - [x] Validations JPA for the module **M13-ticket-microservice**.
-- [x] Validations JPA for the module **M00-user-microservice**.
+- [x] Validations JPA for the module **M99-user-microservice**.
 
 ***
 - [x] Spring Security for the **M01-config-server**
@@ -122,7 +126,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - [x] Spring Security for the **M11-cinema-microservice**
 - [x] Spring Security for the **M12-movie-microservice**
 - [x] Spring Security for the **M13-ticket-microservice**
-- [x] Spring Security for the **M00-user-microservice**
+- [x] Spring Security for the **M99-user-microservice**
 
 ***
 - [x] Spring Boot Admin/Client for all microservices.
@@ -130,8 +134,8 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 
 ***
 - [x] Changing Swagger2 for OpenApi 3.0 Specification. Microservices (from M10 to M13)
-    - [**OpenApi-url cinema**] => (http://localhost:8080/cinema-microservice/swagger-ui.html/)
-    - [**OpenApi-docs cinema**] => (http://localhost:8080/cinema-microservice/api-docs)
+    - [**OpenApi-url cinema**] => (http://localhost:8080/cinema-microservice/open-api/swagger-ui.html/)
+    - [**OpenApi-docs cinema**] => (http://localhost:8080/cinema-microservice/open-api/api-docs)
 
 ***
 - [ ] **Changing spring security for JWT (Json Web Token)** on M03-Gateway-server & all microservices.
@@ -141,16 +145,29 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - [ ] Unit Tests for the module **M11-cinema-microservice**.
 - [ ] Unit Tests for the module **M12-movie-microservice**.
 - [ ] Unit Tests for the module **M13-ticket-microservice**.
-- [ ] Unit Tests for the module **M00-user-microservice**.
-
-***   
-- [ ] ELK - Elasticsearch, Logstash & Kibana.
-    - "ELK" is the acronym for three open source projects: Elasticsearch, Logstash, and Kibana. Elasticsearch is a search and analytics engine. Logstash is a server‑side data processing pipeline that ingests data from multiple sources simultaneously, transforms it, and then sends it to a "stash" like Elasticsearch. Kibana lets users visualize data with charts and graphs in Elasticsearch.
-
+- [ ] Unit Tests for the module **M99-user-microservice**.
 
 ***
 ***
 ## Frontend side: Angular 11 & Boostrap 4
 ***
-***  
-    
+***
+
+### General functionality:
+
+- [ ] **CRUD M10-microservice-city**:
+  - Creation of component, service, module of City entity. (Creation, read, update & delete)
+
+- [ ] **CRUD M11-microservice-cinema**:
+  - Creation of component, service, module of Cinema, Room & Seat entities. (Creation, read, update & delete)
+
+- [ ] **CRUD M12-microservice-movie**:
+  - Creation of component, service, module of Category, Movie, Projection & Session entities. (Creation, read, update & delete)
+
+- [ ] **CRUD M10-microservice-ticket**:
+  - Creation of component, service, module of Ticket entity. (Creation, read, update & delete)
+
+- [ ] **CRUD M10-microservice-user**:
+  - Creation of component, service, module of Customer, Role & user entities. (Creation, read, update & delete)
+  
+- [ ] Authentication of users via **JWT (Json Web Token)**.
