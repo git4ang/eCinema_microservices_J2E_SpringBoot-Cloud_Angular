@@ -6,7 +6,7 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 
 - The goal of this project is to implement a Java EE web application on the backend side and Angular 7 on the frontend side for managing the Cinema entity.
   This project concerns the implementation of JPA-2, JUnit-Mockito, Hibernate 6, Spring 5 (MVC, IOC, Spring security, Spring boot, Spring cloud ... etc),
-  microservices (config-server, eureka-server, gateway-server, open feign, loadbalancer, Hateoas, actuator...etc), JWT, MySQL Database, H2 Database, GIT, Maven, docker,
+  microservices (config-server, eureka-server, gateway-server, open feign, loadbalancer, Hateoas, actuator...etc), JWT, MySQL Database, H2 Database, ELK (elasticsearch, kibana & logstash), GIT, Maven, docker, docker-compose
   Angular 11, Boostrap 4… etc.
 ***
 ## Backend side: Java EE & Spring 5 (Spring Boot 2.52 & Spring Cloud)
@@ -138,8 +138,13 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
     - [**OpenApi-docs cinema**] => (http://localhost:8080/cinema-microservice/open-api/api-docs)
 
 ***
-- [ ] **Changing spring security for JWT (Json Web Token)** on M03-Gateway-server & all microservices.
+- [x] **Changing spring security for JWT (Json Web Token)** on M03-Gateway-server & all microservices.
 
+***   
+- [x] ELK - Elasticsearch, logstash & kibana.
+  - "ELK" is the acronym for three open source projects: Elasticsearch, Logstash, and Kibana. Elasticsearch is a search and analytics engine. Logstash is a server‑side data processing pipeline that ingests data from multiple sources simultaneously, transforms it, and then sends it to a "stash" like Elasticsearch. Kibana lets users visualize data with charts and graphs in Elasticsearch.
+    - [**ELK download**] => https://www.elastic.co/fr/downloads/
+  
 ***
 - [ ] Unit Tests for the module **M10-city-microservice**.
 - [ ] Unit Tests for the module **M11-cinema-microservice**.
@@ -164,10 +169,10 @@ Project developed in **Java EE** with **Spring 5 framework** (+ Spring Boot & Sp
 - [ ] **CRUD M12-microservice-movie**:
   - Creation of component, service, module of Category, Movie, Projection & Session entities. (Creation, read, update & delete)
 
-- [ ] **CRUD M10-microservice-ticket**:
+- [ ] **CRUD M13-microservice-ticket**:
   - Creation of component, service, module of Ticket entity. (Creation, read, update & delete)
 
-- [ ] **CRUD M10-microservice-user**:
+- [ ] **CRUD M99-microservice-user**:
   - Creation of component, service, module of Customer, Role & user entities. (Creation, read, update & delete)
   
 - [ ] Authentication of users via **JWT (Json Web Token)**.

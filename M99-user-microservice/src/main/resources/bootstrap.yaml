@@ -14,7 +14,10 @@ spring:
       port: 27017
       database: usersdb
 
+# log ELK - logstash via Elasticsearch
 logging:
+  file:
+    name: "/home/ang/myApps/docker4ang/docker-compose/logstash/logs/elk-eCinema-microservices.log"
   level:
     org.springframework.web: error
     org.springframework.data: error

@@ -11,6 +11,9 @@ spring:
       discovery:
         ignored-services: ${spring.application.name}
 
+# log ELK - logstash via Elasticsearch
 logging:
+  file:
+    name: "/home/ang/myApps/docker4ang/docker-compose/logstash/logs/elk-eCinema-microservices.log"
   level:
     org.springframework.cloud: error

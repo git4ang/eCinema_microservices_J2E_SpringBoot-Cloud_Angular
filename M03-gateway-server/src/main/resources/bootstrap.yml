@@ -11,7 +11,10 @@ spring:
 #server:
 #  forward-headers-strategy: framework
 
+# log ELK - logstash via Elasticsearch
 logging:
+  file:
+    name: "/home/ang/myApps/docker4ang/docker-compose/logstash/logs/elk-eCinema-microservices.log"
   level:
     org.springframework.cloud.gateway: error
     reactor.netty.http.client: error
